@@ -10,10 +10,6 @@ class ToDoListComponent extends React.Component{
         }
     }
 
-    // resetValue(){
-    //     this.setState({defaultText: ""})
-    // }
-
     checkValidtask(t){
         if(t!==""){
             return true
@@ -59,8 +55,14 @@ class ToDoListComponent extends React.Component{
         )
     }
 
-    _clearList(e){
-        this.setState({task: "", todo: []})
+    _clearList(){
+        let todolist = this.state.todo
+        if( todolist.length > 0){
+            this.setState({task: "", todo: []})
+        }else{
+            alert("LOL!! There are no task to clear!!")
+        }
+        
     }
 
 
@@ -68,10 +70,11 @@ class ToDoListComponent extends React.Component{
         return(
             <div className = "body">
                 <div className="header">
+                    <p>What needs to be done?</p>
                     <form onSubmit = {(e)=>this._checkTask(e)}>
                         <input onChange = {(e)=>this._handleTask(e)} placeholder = "Enter new ToDo items" type = "text" id = "taskField"></input>
                         <button type = "submit" >Add</button>
-                        <button type = 'button' onClick = {(e)=>this._clearList(e)}>Clear All</button>
+                        <button type = 'button' onClick = {()=>this._clearList()}>Clear All</button>
                     </form>
                 </div>
                 {this.displayTodoList()}
