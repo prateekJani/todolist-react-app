@@ -14,3 +14,8 @@
 .Logo{
   background-image: url(./logo192.png);
 }
+
+.Outerbody{
+  text-align: center;
+  justify-content: center;
+}
