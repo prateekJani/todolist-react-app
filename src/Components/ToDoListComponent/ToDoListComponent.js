@@ -5,7 +5,6 @@ class ToDoListComponent extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            // defaultText: "",
             task: "",
             todo: []
         }
@@ -60,14 +59,19 @@ class ToDoListComponent extends React.Component{
         )
     }
 
+    _clearList(e){
+        this.setState({task: "", todo: []})
+    }
+
 
     render(){
         return(
             <div className = "body">
                 <div className="header">
                     <form onSubmit = {(e)=>this._checkTask(e)}>
-                        <input onChange = {(e)=>this._handleTask(e)} placeholder = "Enter today's task" type = "text" id = "taskField"></input>
+                        <input onChange = {(e)=>this._handleTask(e)} placeholder = "Enter new ToDo items" type = "text" id = "taskField"></input>
                         <button type = "submit" >Add</button>
+                        <button type = 'button' onClick = {(e)=>this._clearList(e)}>Clear All</button>
                     </form>
                 </div>
                 {this.displayTodoList()}
