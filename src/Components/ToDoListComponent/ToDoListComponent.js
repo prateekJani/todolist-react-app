@@ -1,5 +1,5 @@
 import React from 'react';
-import './ToDoListComponent.js'
+import './ToDoListComponent.css'
 import FlipMove from "react-flip-move";
 
 class ToDoListComponent extends React.Component{
@@ -56,7 +56,7 @@ class ToDoListComponent extends React.Component{
                 )
             })
             return (
-                <ul>
+                <ul className = 'list'>
                     <FlipMove duration={350} easing="ease-out">
                         {listItems}
                     </FlipMove> 
@@ -95,8 +95,8 @@ class ToDoListComponent extends React.Component{
                     <p>What needs to be done?</p>
                     <form onSubmit = {(e)=>this._addTask(e)}>
                         <input onChange = {(e)=>this._handleTask(e)} placeholder = "Enter new ToDo items" type = "text" id = "taskField"></input>
-                        <button type = "submit" >Add</button>
-                        <button type = 'button' onClick = {()=>this._clearList()}>Clear All</button>
+                        <button type = "submit" id = 'button1' >Add</button>
+                        <button type = 'button' id = 'button2' onClick = {()=>this._clearList()}>Clear All</button>
                     </form>
                 </div>
                 {this.displayTodoList()}
