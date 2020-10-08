@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from './logo192.png';
+import logo from './todolist.png';
 import './App.css';
 import ToDoListComponent from './Components/ToDoListComponent/ToDoListComponent'
 
