@@ -40,18 +40,38 @@ class ToDoListComponent extends React.Component{
 
     displayTodoList(){ //Dispaying all the todo task stored in the todo list on the screen. 
         const items = this.state.todo
-        let listItems = items.map((task) => {
+        if(!items || !items.length){
             return(
-                <li onClick={() => this._delete(task)}> 
-                    {task}
-                </li>//onclick fucntion is used to pass the value of that particular list which has to be deleted from the todo list.
+                <p> <p>You have successfully completed all the task!</p>
+                    <p>Enjoy your rest of the day :)</p>
+                </p>
             )
-        })
-        return (
-            <ul>
-                {listItems}
-            </ul>
-        )
+        }else{
+            let listItems = items.map((task) => {
+                return(
+                    <li onClick={() => this._delete(task)}> 
+                        {task}
+                    </li>//onclick fucntion is used to pass the value of that particular list which has to be deleted from the todo list.
+                )
+            })
+            return (
+                <ul>
+                    {listItems}
+                </ul>
+            )
+        }
+        // let listItems = items.map((task) => {
+        //     return(
+        //         <li onClick={() => this._delete(task)}> 
+        //             {task}
+        //         </li>//onclick fucntion is used to pass the value of that particular list which has to be deleted from the todo list.
+        //     )
+        // })
+        // return (
+        //     <ul>
+        //         {listItems}
+        //     </ul>
+        // )
     }
 
     _clearList(){ //To clear all the tasks that are stored in todo list.
