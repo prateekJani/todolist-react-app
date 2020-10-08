@@ -1,5 +1,6 @@
 import React from 'react';
 import './ToDoListComponent.js'
+import FlipMove from "react-flip-move";
 
 class ToDoListComponent extends React.Component{
     constructor(props){
@@ -56,11 +57,13 @@ class ToDoListComponent extends React.Component{
             })
             return (
                 <ul>
-                    {listItems}
-                </ul>
+                    <FlipMove duration={350} easing="ease-out">
+                        {listItems}
+                    </FlipMove> 
+                </ul>//tried to give some animations :)
             )
         }
-        
+
     }
 
     _clearList(){ //To clear all the tasks that are stored in todo list.
