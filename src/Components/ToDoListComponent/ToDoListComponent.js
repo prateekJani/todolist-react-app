@@ -40,10 +40,9 @@ class ToDoListComponent extends React.Component{
 
     displayTodoList(){
         const items = this.state.todo
-        let listItems = items.map((task, count) => {
-            console.log(task, count);
+        let listItems = items.map((task) => {
             return(
-                <li>
+                <li onClick={() => this._delete(task)}>
                     {task}
                 </li>
             )
@@ -65,6 +64,17 @@ class ToDoListComponent extends React.Component{
         
     }
 
+
+    _delete(key){
+        let modifiedItems = this.state.todo
+        modifiedItems = modifiedItems.filter(function (item) {
+            return (item !== key);
+        });
+         
+        this.setState({
+            todo: modifiedItems
+        });
+    }
 
     render(){
         return(
