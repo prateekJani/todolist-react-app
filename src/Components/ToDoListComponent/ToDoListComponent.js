@@ -60,18 +60,7 @@ class ToDoListComponent extends React.Component{
                 </ul>
             )
         }
-        // let listItems = items.map((task) => {
-        //     return(
-        //         <li onClick={() => this._delete(task)}> 
-        //             {task}
-        //         </li>//onclick fucntion is used to pass the value of that particular list which has to be deleted from the todo list.
-        //     )
-        // })
-        // return (
-        //     <ul>
-        //         {listItems}
-        //     </ul>
-        // )
+        
     }
 
     _clearList(){ //To clear all the tasks that are stored in todo list.
