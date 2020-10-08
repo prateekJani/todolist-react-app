@@ -18,7 +18,7 @@ class ToDoListComponent extends React.Component{
         }
     }
 
-    _checkTask(e){
+    _addTask(e){
         if(this.checkValidtask(this.state.task) === true){
             let todo = this.state.todo
             todo.push(this.state.task)
@@ -81,7 +81,7 @@ class ToDoListComponent extends React.Component{
             <div className = "body">
                 <div className="header">
                     <p>What needs to be done?</p>
-                    <form onSubmit = {(e)=>this._checkTask(e)}>
+                    <form onSubmit = {(e)=>this._addTask(e)}>
                         <input onChange = {(e)=>this._handleTask(e)} placeholder = "Enter new ToDo items" type = "text" id = "taskField"></input>
                         <button type = "submit" >Add</button>
                         <button type = 'button' onClick = {()=>this._clearList()}>Clear All</button>
