@@ -224,7 +224,7 @@ export default function JobCard(props) {
         />
 
         <CardContent>
-          <Typography variant ='subtitle1' color = '#2e3338' align = 'left' >
+          <Typography variant ='subtitle1' color = '#2e3338' align = 'left' fontWeight = 'fontWeightBold' >
             {job.jobTitle}
           </Typography>
           <Typography variant="body2" color="#2e3338" component="p" align = 'left'>
