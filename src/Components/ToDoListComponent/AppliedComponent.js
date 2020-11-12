@@ -123,6 +123,14 @@ export default function AppliedComponent(props){
     const handleClose = () => {
         setOpen(false);
     };
+
+    // const handler = () = {
+    //     setTodo()
+    // };
+
+    const displayParentState = () => {
+        console.log(todo)
+    };
  
     return(
         <div className = "OuterBody">
@@ -136,11 +144,12 @@ export default function AppliedComponent(props){
                         onClose={handleClose}
                         aria-labelledby="simple-modal-title"
                         aria-describedby="simple-modal-description"
+                        animation = "false"
                 >
                     {body}
                 </Modal>
             </div>
-            <JobCard items = {todo} />
+            <JobCard items = {todo} action = {displayParentState}/>
         </div>
 
     )
