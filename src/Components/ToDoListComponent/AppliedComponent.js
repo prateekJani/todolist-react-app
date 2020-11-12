@@ -36,6 +36,10 @@ const useStyles = makeStyles((theme) => ({
       padding: theme.spacing(2, 4, 3),
       margin: theme.spacing(1),
     },
+    button: {
+        backgroundColor: '#ede1d4',
+        color:'#2e3338',
+    },
 }));
 
  
@@ -139,12 +143,24 @@ export default function AppliedComponent(props){
     const displayParentState = () => {
         console.log(todo)
     };
+
+    const handleColor = () => {
+        if(props.gridName === 'Applied'){
+            return '#99ea9b';
+        }else if(props.gridName === 'Interview'){
+            return '#79e27b';
+        }else if(props.gridName === 'Accept'){
+            return '#58da5a';
+        }else if(props.gridName === 'Reject'){
+            return '#f1856a';
+        }
+    }
  
     return(
         <div className = "OuterBody">
             <div className = "InnerBody">
                 <h1>{props.gridName}</h1>
-                <Button variant="contained" size="medium" color="primary" type = "button" onClick={handleOpen}>
+                <Button className = {classes.button} variant="contained" size="medium" type = "button" onClick={handleOpen}>
                     +
                 </Button>
                 <Modal
@@ -157,7 +173,7 @@ export default function AppliedComponent(props){
                     {body}
                 </Modal>
             </div>
-            <JobCard items = {todo} action = {displayParentState}/>
+            <JobCard items = {todo} action = {displayParentState} gridColor = {handleColor()}/>
         </div>
 
     )
