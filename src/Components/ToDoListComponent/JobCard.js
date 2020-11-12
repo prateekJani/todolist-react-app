@@ -10,7 +10,6 @@ import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -36,7 +35,9 @@ function getModalStyle() {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 345,
+    margin: '4px',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
   },
   media: {
     height: 0,
@@ -53,7 +54,8 @@ const useStyles = makeStyles((theme) => ({
     transform: 'rotate(180deg)',
   },
   avatar: {
-    backgroundColor: red[500],
+    backgroundColor: '#ede1d4',
+    color: '#2e3338',
   },
   paper: {
     position: 'absolute',
@@ -83,8 +85,10 @@ export default function JobCard(props) {
   const [jTitle, setJTitle] = React.useState('');
   const [jDescription, setJDescription] = React.useState('');
   const [modalStyle] = React.useState(getModalStyle);
+  const gridColor = props.gridColor;
 
   const handleOpen = (job) => {
+    console.log(gridColor)
     setOpen(true);
     setCurrentJob(job);
   };
@@ -183,11 +187,11 @@ export default function JobCard(props) {
 
   const displayJobs = jobs.map((job,index) => {
       return(    
-      <Card className={classes.root} key = {index}>
+      <Card style={{backgroundColor: gridColor}} key = {index} className = {classes.root}>
         <CardHeader
           avatar={
             <Avatar aria-label="recipe" className={classes.avatar}>
-              {job.companyName}
+              {job.companyName[0]}
             </Avatar>
           }
           action = {
@@ -214,12 +218,16 @@ export default function JobCard(props) {
  
 
           }
-          title={job.jobTitle}
+          title={job.companyName}
+          titleTypographyProps={{variant:'h6' }}
           subheader="September 14, 2016"
         />
 
         <CardContent>
-          <Typography variant="body2" color="textSecondary" component="p">
+          <Typography variant ='subtitle1' color = '#2e3338' align = 'left' >
+            {job.jobTitle}
+          </Typography>
+          <Typography variant="body2" color="#2e3338" component="p" align = 'left'>
             {job.jobDescription}
           </Typography>
         </CardContent>
