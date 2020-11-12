@@ -21,6 +21,12 @@ function getModalStyle() {
 }
   
 const useStyles = makeStyles((theme) => ({
+    root: {
+        '& .MuiTextField-root': {
+          margin: theme.spacing(1),
+          width: 200,
+        },
+    },
     paper: {
       position: 'absolute',
       width: 400,
@@ -28,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
       border: '2px solid #000',
       boxShadow: theme.shadows[5],
       padding: theme.spacing(2, 4, 3),
+      margin: theme.spacing(1),
     },
 }));
 
@@ -62,6 +69,7 @@ export default function AppliedComponent(props){
         }else{
             alert("Please provide all the details")
         }
+
         handleClose();
 
  
@@ -71,7 +79,7 @@ export default function AppliedComponent(props){
 
     const body = (
         <div style = {modalStyle} className = {classes.paper}>
-            <form onSubmit = {addInformation}> 
+            <form className = {classes.root} onSubmit = {addInformation}> 
                 <div>
                     <h2 id="simple-modal-title">Enter all the details</h2>
                     <TextField
