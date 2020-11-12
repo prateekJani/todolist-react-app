@@ -14,6 +14,9 @@ import { red } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import EditIcon from '@material-ui/icons/Edit';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -37,29 +40,126 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     backgroundColor: red[500],
   },
+  paper: {
+    position: 'absolute',
+    width: 400,
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },  
 }));
+
 
 
 export default function JobCard(props) {
   const classes = useStyles();
   const [activeIndex, setActiveIndex] = React.useState(null);
   const [jobs, setJobs] = React.useState(props.items);
+  const [cName, setCName] = React.useState('');
+  const [jTitle, setJTitle] = React.useState('');
+  const [jDescription, setJDescription] = React.useState('');
+  const [updatedJob, setUpdatedJob] = React.useState({});
+  
 
+  const deleteJob = (job) => {
 
-  const handleClose = (job) => {
-
-    console.log(job)
-
+    // console.log(job)
 
     let modifiedJobs = jobs
-    console.log(modifiedJobs)
+    // console.log(modifiedJobs)
+    
     modifiedJobs = modifiedJobs.filter(function (item) {
         return (item !== job);
     });//used filter method to iterate through the list and delete the specific task that is given to the function.
      
     setJobs(modifiedJobs);
+
   };
 
+  const addInformation = e =>{
+    if(cName !== '' || jTitle !== '' || jDescription !== ''){
+      setUpdatedJob({cName: cName, jTitle: jTitle, jDescription: jDescription})
+      setCName('')
+      setJTitle('')
+      setJDescription('')
+    }else{
+      alert('Please enter all details!')
+    }
+    e.preventDefault();
+  };
+
+  const editCard = (
+    <form onSubmit = {addInformation}>
+      <div>
+        <TextField
+          id="outlined-textarea"
+          label="Company Name"
+          placeholder="Enter Company Name"
+          multiline
+          variant="outlined"
+          onChange = {e => setCName(e.target.value)}
+        />
+      </div>
+      <div>
+        <TextField
+          id="outlined-textarea"
+          label="Job Title"
+          placeholder="Enter Job Title"
+          multiline
+          variant="outlined"
+          onChange = {e => setJTitle(e.target.value)}
+        />
+      </div>
+      <div>
+        <TextField
+          id="outlined-textarea"
+          label="Company Description"
+          placeholder="Enter Company Description"
+          multiline
+          variant="outlined"
+          onChange = {e => setJDescription(e.target.value)}
+        />
+      </div>
+      <Button>
+        Edit
+      </Button>
+    </form>
+  );
+
+  const updateJobCard = (job) => {
+
+    let editJobs = jobs
+
+    editJobs = editJobs.map( item => {
+      if (item === job ) {
+          item.companyName = 'edited'
+          item.jobTitle = 'edited'
+          item.jobDescription = 'edited'
+          return item
+      }
+      return item
+    })
+
+    setJobs(editJobs)
+    
+    //take inputs from the user
+
+    // let editJobs = jobs
+
+    // editJobs = editJobs.map( item => {
+    //   if (item === job ) {
+    //       item.companyName = updatedJob.cName
+    //       item.jobTitle = updatedJob.jTitle
+    //       item.jobDescription = updatedJob.jDescription
+    //       return item
+    //   }
+    //   return item
+    // })
+
+    // setJobs(editJobs)
+
+  };
 
 
   const displayJobs = jobs.map((job,index) => {
@@ -70,6 +170,21 @@ export default function JobCard(props) {
             <Avatar aria-label="recipe" className={classes.avatar}>
               {job.companyName}
             </Avatar>
+          }
+          action = {
+            <div>
+              <IconButton
+                aria-label="more"
+                aria-controls="long-menu"
+                aria-haspopup="true"
+                onClick={() => updateJobCard(job)}
+              >
+                <EditIcon />
+              </IconButton>
+
+            </div>
+ 
+
           }
           title={job.jobTitle}
           subheader="September 14, 2016"
@@ -88,7 +203,7 @@ export default function JobCard(props) {
           <IconButton aria-label="share">
             <ShareIcon />
           </IconButton>
-          <IconButton onClick = {() => {handleClose(job)}}>
+          <IconButton onClick = {() => {deleteJob(job)}}>
             <DeleteIcon />
           </IconButton>
           <IconButton
