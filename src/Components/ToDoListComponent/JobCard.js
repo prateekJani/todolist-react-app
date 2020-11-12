@@ -17,7 +17,22 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import EditIcon from '@material-ui/icons/Edit';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Modal from '@material-ui/core/Modal';
 
+function rand() {
+  return Math.round(Math.random() * 20) - 10;
+}
+
+function getModalStyle() {
+  const top = 50 + rand();
+  const left = 50 + rand();
+
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`,
+  };
+}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,27 +63,40 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },  
+  modal: {
+    '& .MuiTextField-root': {
+      margin: theme.spacing(1),
+      width: 200,
+    },
+  },
 }));
 
 
 
 export default function JobCard(props) {
   const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
   const [activeIndex, setActiveIndex] = React.useState(null);
+  const [currentjob, setCurrentJob] = React.useState({});
   const [jobs, setJobs] = React.useState(props.items);
   const [cName, setCName] = React.useState('');
   const [jTitle, setJTitle] = React.useState('');
   const [jDescription, setJDescription] = React.useState('');
-  const [updatedJob, setUpdatedJob] = React.useState({});
+  const [modalStyle] = React.useState(getModalStyle);
+
+  const handleOpen = (job) => {
+    setOpen(true);
+    setCurrentJob(job);
+  };
   
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const deleteJob = (job) => {
 
-    // console.log(job)
-
     let modifiedJobs = jobs
-    // console.log(modifiedJobs)
-    
+
     modifiedJobs = modifiedJobs.filter(function (item) {
         return (item !== job);
     });//used filter method to iterate through the list and delete the specific task that is given to the function.
@@ -79,85 +107,76 @@ export default function JobCard(props) {
 
   const addInformation = e =>{
     if(cName !== '' || jTitle !== '' || jDescription !== ''){
-      setUpdatedJob({cName: cName, jTitle: jTitle, jDescription: jDescription})
-      setCName('')
-      setJTitle('')
-      setJDescription('')
+      updateJobCard();
     }else{
       alert('Please enter all details!')
     }
+
+    handleClose();
+
+    e.target.reset();
     e.preventDefault();
   };
 
   const editCard = (
-    <form onSubmit = {addInformation}>
-      <div>
-        <TextField
-          id="outlined-textarea"
-          label="Company Name"
-          placeholder="Enter Company Name"
-          multiline
-          variant="outlined"
-          onChange = {e => setCName(e.target.value)}
-        />
-      </div>
-      <div>
-        <TextField
-          id="outlined-textarea"
-          label="Job Title"
-          placeholder="Enter Job Title"
-          multiline
-          variant="outlined"
-          onChange = {e => setJTitle(e.target.value)}
-        />
-      </div>
-      <div>
-        <TextField
-          id="outlined-textarea"
-          label="Company Description"
-          placeholder="Enter Company Description"
-          multiline
-          variant="outlined"
-          onChange = {e => setJDescription(e.target.value)}
-        />
-      </div>
-      <Button>
-        Edit
-      </Button>
-    </form>
+    <div style = {modalStyle} className = {classes.paper}>
+      <form className = {classes.modal} onSubmit = {addInformation}>
+        <div>
+          <TextField
+            id="outlined-textarea"
+            label="Company Name"
+            defaultValue={currentjob.companyName}
+            multiline
+            variant="outlined"
+            onChange = {e => setCName(e.target.value)}
+          />
+        </div>
+        <div>
+          <TextField
+            id="outlined-textarea"
+            label="Job Title"
+            defaultValue={currentjob.jobTitle}
+            multiline
+            variant="outlined"
+            onChange = {e => setJTitle(e.target.value)}
+          />
+        </div>
+        <div>
+          <TextField
+            id="outlined-textarea"
+            label="Company Description"
+            defaultValue={currentjob.jobDescription}
+            multiline
+            variant="outlined"
+            onChange = {e => setJDescription(e.target.value)}
+          />
+        </div>
+        <Button type = 'submit'>
+          Edit
+        </Button>
+      </form>
+    </div>
   );
 
-  const updateJobCard = (job) => {
+  const updateJobCard = () => {
 
     let editJobs = jobs
 
     editJobs = editJobs.map( item => {
-      if (item === job ) {
-          item.companyName = 'edited'
-          item.jobTitle = 'edited'
-          item.jobDescription = 'edited'
+      if (item === currentjob) {
+          console.log(item)
+          item.companyName = cName.length>0?cName:currentjob.companyName
+          item.jobTitle = jTitle.length>0?jTitle:currentjob.jobTitle
+          item.jobDescription = jDescription.length>0?jDescription:currentjob.jobDescription
+          setCName('');
+          setJTitle('');
+          setJDescription('');
           return item
       }
       return item
     })
 
     setJobs(editJobs)
-    
-    //take inputs from the user
-
-    // let editJobs = jobs
-
-    // editJobs = editJobs.map( item => {
-    //   if (item === job ) {
-    //       item.companyName = updatedJob.cName
-    //       item.jobTitle = updatedJob.jTitle
-    //       item.jobDescription = updatedJob.jDescription
-    //       return item
-    //   }
-    //   return item
-    // })
-
-    // setJobs(editJobs)
 
   };
 
@@ -177,10 +196,19 @@ export default function JobCard(props) {
                 aria-label="more"
                 aria-controls="long-menu"
                 aria-haspopup="true"
-                onClick={() => updateJobCard(job)}
+                onClick={() => handleOpen(job)}
               >
                 <EditIcon />
               </IconButton>
+              <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+                animation = "false"
+              >
+                {editCard}
+              </Modal>
 
             </div>
  
