@@ -51,7 +51,7 @@ export default function AppliedComponent(props){
     const [companyName, setCompanyName] = React.useState('');
     const [jobTitle, setJobTitle] = React.useState('');
     const [jobDescription, setJobDescription] = React.useState('');
-    const [todo, setTodo] = React.useState([])
+    const [todo, setTodo] = React.useState([]) //items
     const [modalStyle] = React.useState(getModalStyle);
 
     const _checkInformationValid = () => {
@@ -140,9 +140,9 @@ export default function AppliedComponent(props){
     //     setTodo()
     // };
 
-    const displayParentState = () => {
-        console.log(todo)
-    };
+    // const displayParentState = () => {
+    //     console.log(todo)
+    // };
 
     const handleColor = () => {
         if(props.gridName === 'Applied'){
@@ -155,7 +155,7 @@ export default function AppliedComponent(props){
             return '#f1856a';
         }
     }
- 
+    
     return(
         <div className = "OuterBody">
             <div className = "InnerBody">
@@ -173,7 +173,7 @@ export default function AppliedComponent(props){
                     {body}
                 </Modal>
             </div>
-            <JobCard items = {todo} action = {displayParentState} gridColor = {handleColor()}/>
+            <JobCard items = {todo} gridColor = {handleColor()} setItems = {setTodo}/>
         </div>
 
     )
