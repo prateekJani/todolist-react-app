@@ -86,7 +86,6 @@ export default function JobCard(props) {
   const [jDescription, setJDescription] = React.useState('');
   const [modalStyle] = React.useState(getModalStyle);
   const gridColor = props.gridColor;
-  // const updateJob = props.setItems;
   const { setItems } = props
 
 
