@@ -80,12 +80,15 @@ export default function JobCard(props) {
   const [open, setOpen] = React.useState(false);
   const [activeIndex, setActiveIndex] = React.useState(null);
   const [currentjob, setCurrentJob] = React.useState({});
-  const [jobs, setJobs] = React.useState(props.items);
+  const [jobs, setJobs] = React.useState(props.items); 
   const [cName, setCName] = React.useState('');
   const [jTitle, setJTitle] = React.useState('');
   const [jDescription, setJDescription] = React.useState('');
   const [modalStyle] = React.useState(getModalStyle);
   const gridColor = props.gridColor;
+  // const updateJob = props.setItems;
+  const { setItems } = props
+
 
   const handleOpen = (job) => {
     console.log(gridColor)
@@ -106,7 +109,8 @@ export default function JobCard(props) {
     });//used filter method to iterate through the list and delete the specific task that is given to the function.
      
     setJobs(modifiedJobs);
-
+    setItems(modifiedJobs);
+    
   };
 
   const addInformation = e =>{
@@ -181,6 +185,7 @@ export default function JobCard(props) {
     })
 
     setJobs(editJobs)
+    setItems(editJobs)
 
   };
 
