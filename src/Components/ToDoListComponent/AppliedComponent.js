@@ -51,7 +51,7 @@ export default function AppliedComponent(props){
     const [companyName, setCompanyName] = React.useState('');
     const [jobTitle, setJobTitle] = React.useState('');
     const [jobDescription, setJobDescription] = React.useState('');
-    const [todo, setTodo] = React.useState([]) //items
+    const [todo, setTodo] = React.useState([]) //items for the child component in JobCard
     const [modalStyle] = React.useState(getModalStyle);
 
     const _checkInformationValid = () => {
@@ -135,14 +135,6 @@ export default function AppliedComponent(props){
     const handleClose = () => {
         setOpen(false);
     };
-
-    // const handler = () = {
-    //     setTodo()
-    // };
-
-    // const displayParentState = () => {
-    //     console.log(todo)
-    // };
 
     const handleColor = () => {
         if(props.gridName === 'Applied'){
