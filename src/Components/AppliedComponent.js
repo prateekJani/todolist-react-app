@@ -70,6 +70,7 @@ export default function AppliedComponent(props){
             setJobTitle('')
             setJobDescription('')
             setTodo(temp)
+            
         }else{
             alert("Please provide all the details")
         }
@@ -137,13 +138,13 @@ export default function AppliedComponent(props){
     };
 
     const handleColor = () => {
-        if(props.gridName === 'Applied'){
+        if(props.status === 'Applied'){
             return '#99ea9b';
-        }else if(props.gridName === 'Interview'){
+        }else if(props.status === 'Interview'){
             return '#79e27b';
-        }else if(props.gridName === 'Accept'){
+        }else if(props.status === 'Accept'){
             return '#58da5a';
-        }else if(props.gridName === 'Reject'){
+        }else if(props.status === 'Reject'){
             return '#f1856a';
         }
     }
@@ -151,7 +152,7 @@ export default function AppliedComponent(props){
     return(
         <div className = "OuterBody">
             <div className = "InnerBody">
-                <h1>{props.gridName}</h1>
+                <h1>{props.status}</h1>
                 <Button className = {classes.button} variant="contained" size="medium" type = "button" onClick={handleOpen}>
                     +
                 </Button>
