@@ -107,8 +107,8 @@ export default function JobCard(props) {
         return (item !== job);
     });//used filter method to iterate through the list and delete the specific task that is given to the function.
      
-    setJobs(modifiedJobs);
-    setItems(modifiedJobs);
+    setJobs(modifiedJobs); // Modifying the state in this current component
+    setItems(modifiedJobs); // Updating the state in parent component to maintain itegrity in both child and parent component 
     
   };
 
@@ -183,8 +183,8 @@ export default function JobCard(props) {
       return item
     })
 
-    setJobs(editJobs)
-    setItems(editJobs)
+    setJobs(editJobs) // Modifying the state in this current component
+    setItems(editJobs) // Updating the state in parent component to maintain itegrity in both child and parent component 
 
   };
 
