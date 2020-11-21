@@ -47,6 +47,7 @@ export default function AppliedComponent(props){
 
     const classes = useStyles();
 
+    const {getData} = props
     const [open, setOpen] = React.useState(false);
     const [companyName, setCompanyName] = React.useState('');
     const [jobTitle, setJobTitle] = React.useState('');
@@ -70,6 +71,7 @@ export default function AppliedComponent(props){
             setJobTitle('')
             setJobDescription('')
             setTodo(temp)
+            getData(temp)
             
         }else{
             alert("Please provide all the details")
